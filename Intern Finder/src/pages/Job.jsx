@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import brand from "../assets/brand.jpg";
 import { useParams } from "react-router-dom";
@@ -13,13 +13,18 @@ import {
   Chip,
   CardMedia,
   Toolbar,
+  Snackbar,
 } from "@mui/material";
 import NavBar from "../components/NavBar";
+import { useMutation } from "@tanstack/react-query";
 import { FormattedTime } from "../components/util/FormattedDay.mjs";
+import { saveJob } from "../api/user.api.mjs";
 
 const Job = ({ id }) => {
   const { jid } = useParams();
   id = id ? id : jid;
+
+  const [open, setOpen] = useState(false);
 
   const { isLoading, data: job } = useQuery({
     queryKey: ["job", id],
@@ -28,11 +33,21 @@ const Job = ({ id }) => {
     onError: () => {},
   });
 
+  const mutation = useMutation({
+    mutationFn: saveJob,
+    onSuccess: () => {
+      setOpen(true);
+    },
+    onError: () => {},
+  });
+
+  const handleSave = () => {
+    mutation.mutateAsync({ id });
+  };
+
   if (isLoading || !job) {
     return <div>Loading</div>;
   }
-
-  console.log(job);
 
   return (
     <Box>
@@ -98,8 +113,9 @@ const Job = ({ id }) => {
               </Box>
 
               <Box mt={2}>
-                {job.tags.map((tag) => (
+                {job.tags.map((tag, index) => (
                   <Chip
+                    key={index}
                     variant="outlined"
                     sx={{
                       mr: 1,
@@ -194,7 +210,11 @@ const Job = ({ id }) => {
             >
               Apply
             </Button>
-            <Button variant="outlined" sx={{ borderRadius: 0, pl: 4, pr: 4 }}>
+            <Button
+              variant="outlined"
+              sx={{ borderRadius: 0, pl: 4, pr: 4 }}
+              onClick={handleSave}
+            >
               <BookmarkBorderIcon sx={{ mr: 1 }} />
               Save
             </Button>
@@ -209,6 +229,12 @@ const Job = ({ id }) => {
           <Box dangerouslySetInnerHTML={{ __html: job.body }} />
         </Box>
       </Box>
+
+      <Snackbar
+        open={open}
+        onClose={() => setOpen(false)}
+        message="Successfully Save"
+      />
     </Box>
   );
 };

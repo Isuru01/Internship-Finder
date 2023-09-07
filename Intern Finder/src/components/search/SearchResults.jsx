@@ -25,10 +25,8 @@ const SearchResults = () => {
   const paginatedResults = results?.slice(startIndex, endIndex);
 
   const jobList = paginatedResults?.map((job) => (
-    <JobCard setJob={setJob} job={job} />
+    <JobCard key={job.key} setJob={setJob} job={job} />
   ));
-
-  console.log(search);
 
   return (
     <Box

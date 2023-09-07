@@ -76,12 +76,12 @@ const Dashboard = () => {
               <Typography color="text.secondary" sx={{ fontSize: "1rem" }}>
                 {user?.email}
               </Typography>
-              {/* <Typography fontWeight={600} color="primary">
+              {/* <Typography mt={1} fontWeight={600} color="primary">
                 {`> Change Email`}
-              </Typography>
+              </Typography> */}
               <Typography fontWeight={600} color="primary">
                 {`> Change Password`}
-              </Typography> */}
+              </Typography>
             </Box>
           </Box>
 

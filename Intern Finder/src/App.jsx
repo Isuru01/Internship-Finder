@@ -45,7 +45,14 @@ function App() {
             </LogRoute>
           }
         />
-        <Route path="/admin/dashboard/:type/:action?" element={<Admin />} />
+        <Route
+          path="/admin/dashboard/:type/:action?"
+          element={
+            <LogRoute>
+              <Admin />
+            </LogRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

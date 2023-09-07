@@ -42,7 +42,11 @@ const signInUser = async (req, res, next) => {
 };
 
 const saveJob = async (req, res, next) => {
-  const { key, email } = req.body;
+  const { key } = req.body;
+  const {
+    user: { email },
+  } = req.user;
+
   try {
     const user = await User.findOne({ email });
     // check if the user exists

@@ -50,8 +50,8 @@ const NavBar = (props) => {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+        {navItems.map((item, index) => (
+          <ListItem key={index} disablePadding>
             <ListItemButton
               sx={{ textAlign: "center" }}
               onClick={() => handleNavigate(item.link)}
@@ -99,11 +99,9 @@ const NavBar = (props) => {
             Intern Finder
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "flex" } }}>
-            {navItems.map((item) => (
-              // <Button key={item} sx={{ color: "#fff" }}>
-              //   {item}
-              // </Button>
+            {navItems.map((item, index) => (
               <ListItemButton
+                key={index}
                 onClick={() => handleNavigate(item.link)}
                 sx={{ textAlign: "center" }}
               >
