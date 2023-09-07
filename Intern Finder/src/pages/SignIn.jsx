@@ -55,15 +55,10 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log(user);
     setSubmit((prev) => prev + 1);
-
     mutation.mutateAsync(user);
   };
-
-  if (localStorage.getItem("log")) {
-    navigate("/");
-  }
 
   return (
     <Box>

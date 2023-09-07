@@ -21,7 +21,7 @@ const app = express();
 //middlewares
 app.use(
   cors({
-    origin: "http://localhost:5173", // replace with the URL of your client
+    origin: process.env.HOST_URL, // replace with the URL of your client
     credentials: true,
   })
 ); //cross orgin resource sharing for giving access to our api
